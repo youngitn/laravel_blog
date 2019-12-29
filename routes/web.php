@@ -41,4 +41,10 @@ Route::get('/', function () {
 //使用controller後
 Route::get('/posts/', 'PostController@allPost');
 
+
 Route::get('/posts/insert', 'PostController@insertPost');
+Route::post('/post', 'PostController@insertPost');
+
+Route::post('/post/form', function () {
+    return view('post_form');
+});

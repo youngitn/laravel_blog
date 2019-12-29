@@ -69,4 +69,22 @@ class PostTest extends TestCase
         $response->assertSee($text);
     }
 
+    // tests/Feature/PostText.php
+    public function testInsertPostByPostRoute()
+    {
+        $text = "It's a new post.";
+
+        //run route /post並帶參數post_text=$text 模擬來自表單的輸入
+        $this->post('/post',
+            ['post_text' => $text ]);
+        //route指向的controller@action會將資料存進測試資料庫,所以測試資料庫中會有資料
+        $this->assertDatabaseHas('posts', ['post_text' => $text ]);
+        //讀出all資料
+        $response = $this->get('/posts');
+        //符合預期
+        $response->assertSee($text);
+        //因為有使用use RefreshDatabase; 所以資料都不會留下來 測完就會清空
+        //所以建議使用sqllite
+    }
+
 }
