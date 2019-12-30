@@ -48,3 +48,12 @@ Route::post('/post', 'PostController@insertPost');
 Route::post('/post/form', function () {
     return view('post_form');
 });
+
+//r要進該路徑需要auth
+Route::get('/post/form', function () {
+    return view('post_form');
+})->middleware('auth');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
